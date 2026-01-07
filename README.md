@@ -7,6 +7,15 @@
 <p align="center">
   <strong>Your Year on Instagram, Beautifully Visualized</strong>
 </p>
+<p align="center">
+  <strong>Project:</strong><br/>
+  <a href="https://wrapped-instagram.vercel.app/" target="_blank">
+    <img 
+      src="https://img.shields.io/badge/Live%20Demo-View%20Website-00C853?style=for-the-badge&logo=vercel&logoColor=white" 
+      alt="Live Demo"
+    />
+  </a>
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react" alt="React"/>
