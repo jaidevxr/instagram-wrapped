@@ -8,10 +8,10 @@
   <strong>Your Year on Instagram, Beautifully Visualized</strong>
 </p>
 <p align="center">
-  <strong>Project:</strong><br/>
+  <strong></strong><br/>
   <a href="https://wrapped-instagram.vercel.app/" target="_blank">
     <img 
-      src="https://img.shields.io/badge/Live%20Demo-View%20Website-00C853?style=for-the-badge&logo=vercel&logoColor=white" 
+      src="https://img.shields.io/badge/Live%20D-View%20Website-00C853?style=for-the-badge&logo=vercel&logoColor=white" 
       alt="Live Demo"
     />
   </a>
