@@ -114,7 +114,10 @@ export interface TopContact {
   messagesPerHour: Record<number, number>;
   topWords: Array<{ word: string; count: number }>;
   topEmojis: Array<{ emoji: string; count: number }>;
-  mediaStats: { photos: number; videos: number; reels: number; links: number };
+  mediaStats: { 
+    photos: number; videos: number; reels: number; links: number;
+    reelsSent: number; reelsReceived: number;
+  };
   avgResponseTime?: number;
   longestStreak: number;
   firstMessage?: { date: Date; content: string };
