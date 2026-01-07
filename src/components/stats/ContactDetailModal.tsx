@@ -194,6 +194,46 @@ export function ContactDetailModal({ contact, rank, year, onClose }: ContactDeta
                     <p className="retro-text text-xs text-muted-foreground">Links</p>
                   </div>
                 </div>
+
+                {/* Reel Sharing Comparison */}
+                {(contact.mediaStats.reelsSent > 0 || contact.mediaStats.reelsReceived > 0) && (
+                  <div className="mt-4">
+                    <p className="pixel-text text-xs text-neon-purple mb-2 text-center">REEL SHARING BATTLE</p>
+                    <div className="flex items-center gap-2">
+                      <span className="retro-text text-xs text-secondary w-12 text-right">You</span>
+                      <div className="flex-1 h-6 rounded-full overflow-hidden bg-muted flex">
+                        {(() => {
+                          const total = contact.mediaStats.reelsSent + contact.mediaStats.reelsReceived;
+                          const sentPct = total > 0 ? (contact.mediaStats.reelsSent / total) * 100 : 50;
+                          return (
+                            <>
+                              <div 
+                                className="bg-gradient-to-r from-secondary to-secondary/70 flex items-center justify-end pr-2 transition-all"
+                                style={{ width: `${sentPct}%` }}
+                              >
+                                <span className="retro-text text-xs text-secondary-foreground font-bold">{contact.mediaStats.reelsSent}</span>
+                              </div>
+                              <div 
+                                className="bg-gradient-to-r from-accent/70 to-accent flex items-center justify-start pl-2 transition-all"
+                                style={{ width: `${100 - sentPct}%` }}
+                              >
+                                <span className="retro-text text-xs text-accent-foreground font-bold">{contact.mediaStats.reelsReceived}</span>
+                              </div>
+                            </>
+                          );
+                        })()}
+                      </div>
+                      <span className="retro-text text-xs text-accent w-12">Them</span>
+                    </div>
+                    <p className="retro-text text-xs text-center mt-2 text-muted-foreground">
+                      {contact.mediaStats.reelsSent > contact.mediaStats.reelsReceived 
+                        ? `You send ${contact.mediaStats.reelsSent - contact.mediaStats.reelsReceived} more reels 🎬`
+                        : contact.mediaStats.reelsReceived > contact.mediaStats.reelsSent
+                        ? `They send ${contact.mediaStats.reelsReceived - contact.mediaStats.reelsSent} more reels 📱`
+                        : `Equal reel sharers! 🤝`}
+                    </p>
+                  </div>
+                )}
               </div>
             )}
             </div>
