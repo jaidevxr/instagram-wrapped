@@ -119,7 +119,7 @@ const Index = () => {
 
             {/* Made by */}
             <p className="retro-text text-xs text-muted-foreground/50">
-              Made with <Heart className="w-4 h-4 text-neon-pink fill-neon-pink" /> by Jaidev
+              made with love by jaidev
             </p>
           </div>
         )}
