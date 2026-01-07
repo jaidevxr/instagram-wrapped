@@ -193,7 +193,7 @@ function processMessages(files: ParsedFile[], year: number): MessageStats {
     dayCounts: Record<string, number>;
     words: Record<string, number>;
     emojis: Record<string, number>;
-    mediaStats: { photos: number; videos: number; reels: number; links: number };
+    mediaStats: { photos: number; videos: number; reels: number; links: number; reelsSent: number; reelsReceived: number };
     firstMessage?: { date: Date; content: string };
     lastMessage?: { date: Date; content: string };
   }> = new Map();
@@ -222,7 +222,7 @@ function processMessages(files: ParsedFile[], year: number): MessageStats {
           dayCounts: {},
           words: {},
           emojis: {},
-          mediaStats: { photos: 0, videos: 0, reels: 0, links: 0 },
+          mediaStats: { photos: 0, videos: 0, reels: 0, links: 0, reelsSent: 0, reelsReceived: 0 },
         });
       }
       const stats = contactStats.get(contactName)!;
@@ -288,7 +288,7 @@ function processMessages(files: ParsedFile[], year: number): MessageStats {
           dayCounts: {},
           words: {},
           emojis: {},
-          mediaStats: { photos: 0, videos: 0, reels: 0, links: 0 },
+          mediaStats: { photos: 0, videos: 0, reels: 0, links: 0, reelsSent: 0, reelsReceived: 0 },
         });
       }
       const stats = contactStats.get(contactName)!;
@@ -309,19 +309,29 @@ function processMessages(files: ParsedFile[], year: number): MessageStats {
         stats.lastMessage = { date: msgDate, content };
       }
 
-      // Track media stats
-      if (msg.photos && msg.photos.length > 0) {
-        stats.mediaStats.photos += msg.photos.length;
-      }
-      if (msg.videos && msg.videos.length > 0) {
-        stats.mediaStats.videos += msg.videos.length;
-      }
-      if (msg.share?.link) {
-        // Check if it's a reel link
-        if (msg.share.link.includes('reel') || msg.share.link.includes('/reel/')) {
-          stats.mediaStats.reels++;
-        } else {
-          stats.mediaStats.links++;
+      // Track media stats (differentiate sender)
+      if (isSent) {
+        if (msg.photos && msg.photos.length > 0) {
+          stats.mediaStats.photos += msg.photos.length;
+        }
+        if (msg.videos && msg.videos.length > 0) {
+          stats.mediaStats.videos += msg.videos.length;
+        }
+        if (msg.share?.link) {
+          if (msg.share.link.includes('reel') || msg.share.link.includes('/reel/')) {
+            stats.mediaStats.reels++;
+            stats.mediaStats.reelsSent++;
+          } else {
+            stats.mediaStats.links++;
+          }
+        }
+      } else {
+        // Received media - only track reels comparison
+        if (msg.share?.link) {
+          if (msg.share.link.includes('reel') || msg.share.link.includes('/reel/')) {
+            stats.mediaStats.reels++;
+            stats.mediaStats.reelsReceived++;
+          }
         }
       }
 
